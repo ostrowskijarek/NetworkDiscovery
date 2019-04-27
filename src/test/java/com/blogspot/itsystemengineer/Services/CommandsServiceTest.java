@@ -23,7 +23,8 @@ public class CommandsServiceTest {
 		} else {
 		 nmapCmd = cs.execute("nmap","");
 		}
-		assert(nmapCmd.contains("Usage: nmap [Scan Type(s)] [Options] {target specification}"));
+		System.out.println("nmapCmd: "+nmapCmd);
+		assert(nmapCmd.contains("nmap.org"));
 	}
 
 }
