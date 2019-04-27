@@ -14,10 +14,15 @@ public class CommandsServiceTest {
 
 	@Autowired
 	CommandsService cs;
-
+	String nmapCmd;
+	
 	@Test
 	public void execute() {
-		String nmapCmd = cs.execute("C:\\Nmap\\nmap.exe","");
+		if (System.getProperty("os.name").contains("windows")) {
+		 nmapCmd = cs.execute("C:\\Nmap\\nmap.exe","");
+		} else {
+		 nmapCmd = cs.execute("nmap","");
+		}
 		assert(nmapCmd.contains("Usage: nmap [Scan Type(s)] [Options] {target specification}"));
 	}
 
