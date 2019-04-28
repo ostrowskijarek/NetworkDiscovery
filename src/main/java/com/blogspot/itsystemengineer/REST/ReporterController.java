@@ -10,7 +10,7 @@ public class ReporterController {
 	@PostMapping("/report")
 	public String scan(HttpEntity<String> httpEntity) {
 		String output = httpEntity.getBody();
-		System.out.println("output: " + output);
+		System.out.println("Retrieved Output: " + output);
 		return "{\"status\":\"ok\"}";
 	}
 

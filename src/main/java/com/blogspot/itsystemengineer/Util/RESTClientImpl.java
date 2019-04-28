@@ -26,10 +26,13 @@ public class RESTClientImpl implements RESTClient {
 	}
 	
 	public void post() {
+		System.out.println("Calling Reporting Service");
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		headers.add("Content-Type", "application/text");
 		HttpEntity<String> request = new HttpEntity<String>(body, headers);
 		restTemplate.postForObject(uri, request, String.class);
+		System.out.println("Called Reporting Service");
+
 	}
 
 }

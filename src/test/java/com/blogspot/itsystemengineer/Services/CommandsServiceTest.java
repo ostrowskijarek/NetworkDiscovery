@@ -15,16 +15,19 @@ public class CommandsServiceTest {
 	@Autowired
 	CommandsService cs;
 	String nmapCmd;
-	
+
 	@Test
 	public void execute() {
-		if (System.getProperty("os.name").contains("windows")) {
-		 nmapCmd = cs.execute("C:\\Nmap\\nmap.exe","");
+
+		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+			System.out.println("Windows");
+			nmapCmd = cs.execute("C:\\Nmap\\nmap.exe", "127.0.0.1");
 		} else {
-		 nmapCmd = cs.execute("nmap","");
+			System.out.println("Not Windows");
+			nmapCmd = cs.execute("nmap", "127.0.0.1");
 		}
-		System.out.println("nmapCmd: "+nmapCmd);
-		assert(nmapCmd.contains("nmap.org"));
+		System.out.println("nmapCmd: " + nmapCmd);
+		assert (nmapCmd.contains("nmap.org"));
 	}
 
 }

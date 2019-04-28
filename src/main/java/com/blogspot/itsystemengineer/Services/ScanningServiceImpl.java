@@ -35,15 +35,22 @@ public class ScanningServiceImpl implements ScanningService {
 	@Override
 	public void run() {
 
-		if (System.getProperty("os.name").contains("windows")) {
-			nmap = cs.execute("C:\\Nmap\\nmap.exe", "");
+		System.out.println("ipScope: " + ipScope);
+
+		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+			System.out.println("Windows");
+			nmap = "C:\\Nmap\\nmap.exe";
 		} else {
-			nmap = cs.execute("nmap", "");
+			System.out.println("Not Windows");
+			nmap = "nmap";
 		}
 		String output = cs.execute(nmap, ipScope);
 		List<ServiceInstance> list = discoveryClient.getInstances("Manager");
-		restClient.setUri(list.get(0).getHost()+":"+list.get(0).getPort() + "/report");
+		String uri = "http://"+list.get(0).getHost() + ":" + list.get(0).getPort() + "/report";
+		System.out.println("URI: "+uri);
+		restClient.setUri(uri);
 		restClient.setBody(output);
+		restClient.post();
 	}
 
 }
