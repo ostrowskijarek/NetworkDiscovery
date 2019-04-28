@@ -18,7 +18,8 @@ public class ScannerController {
 	private TaskExecutor taskExecutor;
 
 	@GetMapping("/scan")
-	public void scan(@RequestParam("ipScope") String ipScope) {
+	public String scan(@RequestParam("ipScope") String ipScope) {
 		taskExecutor.execute(ctx.getBean(ScanningService.class, ipScope));
+		return "{\"status\":\"ok\"}";
 	}
 }

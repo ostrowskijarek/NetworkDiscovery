@@ -42,7 +42,7 @@ public class ScanningServiceImpl implements ScanningService {
 		}
 		String output = cs.execute(nmap, ipScope);
 		List<ServiceInstance> list = discoveryClient.getInstances("Manager");
-		restClient.setUri(list.get(0).getHost() + "/report");
+		restClient.setUri(list.get(0).getHost()+":"+list.get(0).getPort() + "/report");
 		restClient.setBody(output);
 	}
 
