@@ -3,7 +3,11 @@ spring:
         name: Scanner
     cloud:
         consul:
-            host: 192.168.1.114
+            host: JAREK-PC
             port: 8500
             discovery:
-                instanceId: ${spring.application.name}
+                instanceId: ${spring.application.name}:${random.value}
+                healthCheckPath: /health-check
+                healthCheckInterval: 20s
+                
+#consul agent -dev -client=192.168.1.114 -bind 192.168.1.114
