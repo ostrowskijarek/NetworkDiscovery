@@ -1,6 +1,6 @@
 spring:
     application:
-        name: Scanner
+        name: Manager
     cloud:
         consul:
             host: JAREK-PC
@@ -11,3 +11,7 @@ spring:
                 healthCheckInterval: 20s
                 
 #consul agent -dev -client=192.168.1.114 -bind 192.168.1.114
+
+#firewall-cmd --get-active-zones
+#firewall-cmd --zone=public --add-port=2888/tcp --permanent
+#firewall-cmd --reload
