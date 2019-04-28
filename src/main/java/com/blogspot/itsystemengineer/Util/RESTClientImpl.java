@@ -8,7 +8,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class RESTClientImpl implements RESTClient {
 
@@ -17,26 +19,24 @@ public class RESTClientImpl implements RESTClient {
 
 	@Setter
 	private String uri;
-	
+
 	@Setter
 	private String body;
 
 	public void get() {
+		log.info("Call for Get() starts for uri: " + uri);
 		restTemplate.getForObject(uri, String.class);
+		log.info("Call for Get() finishes for uri: " + uri);
 	}
-	
+
 	public void post() {
-		System.out.println("Calling Reporting Service");
+		log.info("Call for Post() starts for uri: " + uri);
+		log.debug("with body: " + body);
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		headers.add("Content-Type", "application/text");
 		HttpEntity<String> request = new HttpEntity<String>(body, headers);
 		restTemplate.postForObject(uri, request, String.class);
-		System.out.println("Called Reporting Service");
-
+		log.info("Call for Post() finishes for uri: " + uri);
 	}
 
 }
-
-
-
-

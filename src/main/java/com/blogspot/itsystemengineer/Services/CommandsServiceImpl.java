@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class CommandsServiceImpl implements CommandsService {
 	@Override
 	public String execute(String cmd, String param) {
-		System.out.println("cmd: " + cmd);
-		System.out.println("param: " + param);
+		
+		log.info("CommandsService starts for: cmd: " + cmd + ",param: " + param);
 		String result = "";
 		String error = "";
 		try {
@@ -22,13 +24,13 @@ public class CommandsServiceImpl implements CommandsService {
 			Process process = builder.start();
 			result = convert(process.getInputStream());
 			error = convert(process.getErrorStream());
-			System.out.println("result: " + result);
-			System.out.println("error: " + error);
+			log.debug("result: " + result);
+			log.debug("error: " + error);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		log.info("CommandsService finishes for: cmd: " + cmd + ",param: " + param);
 		return result;
 	}
 

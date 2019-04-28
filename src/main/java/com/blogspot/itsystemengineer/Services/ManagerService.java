@@ -1,5 +1,7 @@
 package com.blogspot.itsystemengineer.Services;
 
-public interface ManagerService extends Runnable {
-
+public interface ManagerService {
+	
+	public void distributeLoad(String ipScope);
+	
 }

@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class NetworkToolsImpl implements NetworkTools {
 
 	@Override
 	public List<String> split(String ipRange, int scannersCounter) {
+		log.info("Called split(), ipRange: "+ipRange+", scannersCounter: " +scannersCounter);
 
 		List<String> returnList = new ArrayList<>();
 
@@ -23,7 +26,6 @@ public class NetworkToolsImpl implements NetworkTools {
 
 		int range = (stop - start) / scannersCounter;
 
-
 		for (int i = 0; i < scannersCounter; i++) {
 			int iStart = start + i * range;
 			int iStop = stop;
@@ -34,7 +36,7 @@ public class NetworkToolsImpl implements NetworkTools {
 			returnList.add(element);
 
 		}
-
+		log.info("Returning: "+returnList.toString());
 		return returnList;
 	}
 

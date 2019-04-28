@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.blogspot.itsystemengineer.Util.RESTClient;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @Scope("prototype")
-public class ScanningServiceImpl implements ScanningService {
+public class ScanningThreadServiceImpl implements ScanningThreadService {
 
 	@Autowired
 	CommandsService cs;
@@ -26,31 +29,25 @@ public class ScanningServiceImpl implements ScanningService {
 
 	String ipScope;
 
-	ScanningServiceImpl(String ipScope) {
+	ScanningThreadServiceImpl(String ipScope) {
 		this.ipScope = ipScope;
 	}
 
-	String nmap;
+	private String nmapCmd;
 
 	@Override
 	public void run() {
-
-		System.out.println("ipScope: " + ipScope);
-
-		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-			System.out.println("Windows");
-			nmap = "C:\\Nmap\\nmap.exe";
-		} else {
-			System.out.println("Not Windows");
-			nmap = "nmap";
-		}
-		String output = cs.execute(nmap, ipScope);
+		log.info("Scanning Thread starts for ipScope: " + ipScope);
+		nmapCmd = "nmap";
+		String body = cs.execute(nmapCmd, ipScope);
 		List<ServiceInstance> list = discoveryClient.getInstances("Manager");
-		String uri = "http://"+list.get(0).getHost() + ":" + list.get(0).getPort() + "/report";
-		System.out.println("URI: "+uri);
+		String uri = "http://" + list.get(0).getHost() + ":" + list.get(0).getPort() + "/report";
+		log.debug("setting uri: " + uri);
 		restClient.setUri(uri);
-		restClient.setBody(output);
+		log.debug("setting body:" + body);
+		restClient.setBody(body);
 		restClient.post();
+		log.info("Scanning Thread finishes for ipScope: " + ipScope);
 	}
 
 }

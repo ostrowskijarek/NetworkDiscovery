@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blogspot.itsystemengineer.Services.ScanningService;
+import com.blogspot.itsystemengineer.Services.ScanningThreadService;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RestController
 public class ScannerController {
 
@@ -19,7 +21,9 @@ public class ScannerController {
 
 	@GetMapping("/scan")
 	public String scan(@RequestParam("ipScope") String ipScope) {
-		taskExecutor.execute(ctx.getBean(ScanningService.class, ipScope));
+		log.info("ScannerController starts for ipScope: "+ipScope);
+		taskExecutor.execute(ctx.getBean(ScanningThreadService.class, ipScope));
+		log.info("ScannerController finishes for ipScope: "+ipScope);
 		return "{\"status\":\"ok\"}";
 	}
 }
