@@ -1,6 +1,6 @@
 spring:
     application:
-        name: Manager
+        name: Scanner
     cloud:
         consul:
             host: JAREK-PC
