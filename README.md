@@ -34,8 +34,9 @@ java -jar Network*.jar
 Please note that this is just a PoC so some methods are not designed to work properly but only under a certain input!
 The most important one is: NetworkToolsImpl which splits the given range for the discovered number of scanners.
 
-Once everything is up and running, call the Manager with:
-127.0.0.1:8080/start?ipScope=192.168.1.1-254
+Once everything is up and running, call the Manager:
+
+http://127.0.0.1:8080/start?ipScope=192.168.1.1-254
 
 The manager splits the range and sends each piece to each registered scanner through RestAPI
 Once the scan is complete, Scanners send back the output to Manager, which simply displays it in the console.
