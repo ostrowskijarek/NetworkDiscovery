@@ -16,8 +16,11 @@ You need at least two Scanners to test the load balancing capabilites. I used tw
 I had to install (on minimal Centos 7 image):
 
 yum install java-1.8.0-openjdk-devel
+
 yum install git
+
 yum install maven
+
 yum install nmap
 
 Then clone the repo (use github clone cmd) and build it with maven:
